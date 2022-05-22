@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <title>Bill Mail</title>
+</head>
+
+<body style="background-color: #f1f1f1;">
+<table style="width: 600px;margin: 0px auto;font-family: monospace;background-color: white;">
+    <tr>
+        <td style="margin-left: 10px;">
+            <div style="width: 100%;display: flex;">
+                <div style="width: 30%;text-align: left;padding-left: 15px;margin-top: 15px;margin-bottom: 15px;">
+                    <img src='https://res.cloudinary.com/cuongpham/image/upload/logo.png' width='150px'>
+                </div>
+                <div style="width: 70%;text-align: right;padding-right: 15px;margin-top: 15px;margin-bottom: 15px;">
+                    <h1>HÓA ĐƠN</h1>
+                    <h4 th:text="'Ngày: ' + ${#dates.format(order.createdAt, 'dd/MM/yyyy HH:mm:ss')}"></h4>
+                </div>
+            </div>
+            <hr style="margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0,0,0,.1);">
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <div style="width: 100%;display: flex;">
+                <div style="width: 50%;text-align: left;padding-left: 15px;margin-bottom: 15px;">
+                    <h4><b>Đến</b></h4>
+                    <p style="margin: 0" th:text="${order.user.fullName}"></p>
+                    <p style="margin: 0" th:text="${order.user.email}"></p>
+                    <p style="margin: 0" th:text="${order.user.mobile}"></p>
+                    <p style="margin: 0" th:text="${order.user.address}"></p>
+                </div>
+                <div style="width: 50%;text-align: right;padding-right: 15px;margin-bottom: 15px;">
+                    <h4><b>Từ</b></h4>
+                    <p><b>CÔNG TY COMPUTER CƯỜNG PHẠM</b>
+                        <br>0961656067<br>
+                        computercuongpham999@gmail.com<br>
+                        19A Xa La, Hà Đông, Hà Nội
+                    </p>
+                </div>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <table style="width: 100%; ">
+                <tr style="background-color: #e9ecef;">
+                    <th style="width: 40%;text-align: left;">
+                        Tên sản phẩm
+                    </th>
+                    <th>
+                        Đơn giá
+                    </th>
+                    <th>
+                        Số lượng
+                    </th>
+                    <th>
+                        Thành tiền
+                    </th>
+                </tr>
+
+                <tr th:each="lineItem : ${order.cart.lineItems}">
+                    <td style="width: 40%;text-align: left;">
+                        <div style="text-align: center;">
+                            <img th:src="${lineItem.laptop.image}"
+                                 width="100px">
+                        </div>
+                        <span th:text="${lineItem.laptop.name}"></span>
+                    </td>
+                    <td style="text-align: center;" th:text="${#numbers.formatInteger(lineItem.laptop.price,0,'POINT')+' ₫'}">
+                    </td>
+                    <td style="text-align: center;" th:text="${lineItem.quantity}">
+                    </td>
+                    <td style="text-align: center;" th:text="${#numbers.formatInteger(lineItem.quantity * lineItem.laptop.price,0,'POINT')+' ₫'}">
+                    </td>
+                </tr>
+
+            </table>
+        </td>
+    </tr>
+
+    <tr>
+        <td style="padding-right: 15px;">
+            <div style="width:100%;text-align: right;margin-top: 15px;margin-bottom: 15px;">
+                <b>Tổng tiền: </b> <span th:text="${#numbers.formatInteger(order.payment.totalMoney,0,'POINT')+' ₫'}"></span>
+            </div>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <hr style="margin-top: 1rem;
+        margin-bottom: 1rem;
+        border: 0;
+        border-top: 1px solid rgba(0,0,0,.1);">
+            <div style="width:100%;text-align: center;height: 130px;padding-top: 20px;">
+                <h3>Cảm ơn bạn đã mua hàng của chúng tôi</h3>
+            </div>
+        </td>
+    </tr>
+
+</table>
+</body>
+
+</html>
