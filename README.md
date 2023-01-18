@@ -12,3 +12,4 @@ Demo service thương mại điện tử, sản phẩm là laptop, gồm đầy 
 - Spring JPA
 - MySQL
 - Elastic search
+- Multiple Datasource
